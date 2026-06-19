@@ -1,0 +1,81 @@
+# canon-direct-push-guard
+#
+# Reactive enforcement of the repo rule:
+#   "Push direct to `main` is the default. `canon/**` is the one exception
+#    and goes through a PR reviewed by the owner."
+#
+# This workflow runs on every push to `main` and inspects each commit in
+# the push. If any commit:
+#   - modifies a file under `canon/**`, AND
+#   - is NOT a merge commit (i.e. it was a direct push, not a PR merge),
+# then the workflow fails. The failure shows up as a red ❌ on the commit
+# in the GitHub UI and triggers the standard workflow-failure notifications.
+#
+# This is REACTIVE, not preventive: GitHub free plan + private repo does
+# not include Rulesets or Branch Protection. The push itself succeeds; the
+# subsequent check fails. The convention does the rest (the human reverts
+# or opens a fix PR).
+#
+# When the repo moves to GitHub Pro / Team / public, replace this workflow
+# with a proper push ruleset on `canon/**` (Settings → Rules → Rulesets).
+# See .github/CANON-ENFORCEMENT.md for the upgrade path.
+
+name: canon-direct-push-guard
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout (with history)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Detect direct push to canon/
+        run: |
+          set -euo pipefail
+
+          # Iterate over every commit pushed in this event.
+          # GITHUB_EVENT_PATH contains the push event payload with `commits[]`.
+          commits_json=$(jq -c '.commits[]' "$GITHUB_EVENT_PATH")
+
+          fail=0
+          while IFS= read -r commit; do
+            sha=$(echo "$commit" | jq -r '.id')
+            short=${sha:0:7}
+
+            # Determine parent count via `git cat-file -p`.
+            # `|| true`: a root/seed commit has 0 parents, and `grep -c` exits
+            # non-zero on no matches, which would trip `set -e` before the
+            # check below. Keep the count, swallow the exit status.
+            parent_count=$(git cat-file -p "$sha" | grep -c '^parent ' || true)
+
+            # Check whether this commit touches canon/**.
+            touches_canon=$(git show --name-only --pretty=format: "$sha" \
+              | grep -E '^canon/' || true)
+
+            # parent_count 0 = root / seed commit (the repo bootstrap, or an
+            #   adopter's first commit from this template) — exempt, canon is
+            #   expected to be seeded in the very first commit.
+            # parent_count >= 2 = merge commit (came through a PR) — allowed.
+            # parent_count == 1 = a direct, non-merge push touching canon — blocked.
+            if [ -n "$touches_canon" ] && [ "$parent_count" -eq 1 ]; then
+              echo "::error::Commit $short modifies canon/ but is NOT a merge commit."
+              echo "Files touched under canon/:"
+              echo "$touches_canon" | sed 's/^/  /'
+              echo ""
+              echo "Per the repo rule, every change to canon/** goes through a PR"
+              echo "reviewed by the owner. Direct push to canon/ is not allowed."
+              echo ""
+              echo "Fix: revert this commit and re-land the change via a PR."
+              fail=1
+            fi
+          done <<< "$commits_json"
+
+          exit $fail

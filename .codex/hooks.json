@@ -1,0 +1,37 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "create_draft|manage_crm_objects",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo 'Entity-scan reminder: an email draft or CRM write was detected. Before proceeding, verify that every external person or company touched has (a) a CRM record with crm_url and (b) an MD in the repo (people/ + companies/). If a piece is missing, create it as a pair, propagating reverse wiki-links onto industries/ + relationship-types/ + job-titles/. Internal team people stay human-curated. Ref: canon/operations.md, section In-repo external entities (create-on-first-mention).'"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "M=$(git worktree list 2>/dev/null | head -1 | awk '{print $1}'); [ -n \"$M\" ] && find \"$M/.git\" -name index.lock -mmin +1 -delete 2>/dev/null; git pull --rebase --autostash origin main 2>&1 | tail -5 || echo 'worktree git pull failed. working on potentially stale state. Check `git status` and `git log origin/main..HEAD` before writing.'; [ -n \"$M\" ] && [ \"$M\" != \"$(pwd)\" ] && (echo '--- main repo pull ---'; git -C \"$M\" pull --ff-only 2>&1 | tail -3 || echo 'main repo pull skipped. likely a fresh git worker lock (a parallel editor or Claude session). The local editor may show stale until the other process finishes.')",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ -z \"$(git status --porcelain)\" ] && exit 0; if git status --porcelain | awk '{print $NF}' | grep -q '^canon/'; then echo 'Auto write-back skipped: canon/ change detected. canon is PR-only, commit and open a PR by hand.'; exit 0; fi; if command -v lychee >/dev/null 2>&1; then lychee --offline --no-progress --exclude '<[^>]+>' './**/*.md' >/dev/null 2>&1 || { echo 'Auto write-back skipped: lychee found a broken markdown link. Fix it, then commit by hand.'; exit 0; }; fi; git add -A; N=$(git diff --cached --name-only | wc -l | tr -d ' '); git commit -q -m \"chore: auto write-back ($N files)\" || exit 0; git push -q origin HEAD:main 2>/dev/null || { git pull --rebase --autostash origin main >/dev/null 2>&1 && git push -q origin HEAD:main 2>/dev/null; } || echo 'Auto write-back: committed locally, push failed (network, auth, or non-fast-forward). Lands on next successful push.'; exit 0",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}

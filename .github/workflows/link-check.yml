@@ -1,0 +1,28 @@
+name: Link check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  lychee:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check markdown links (internal only)
+        uses: lycheeverse/lychee-action@v2
+        with:
+          # --offline: skip external URLs (we only want to protect the internal wiki graph).
+          # --exclude '<[^>]+>': skip template placeholders like [<Full Name>](../../people/<slug>.md)
+          #                     used in README format specs — those aren't real links.
+          args: |
+            --offline
+            --no-progress
+            --exclude '<[^>]+>'
+            './**/*.md'
+          fail: true

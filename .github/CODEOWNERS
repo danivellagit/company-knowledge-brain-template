@@ -1,0 +1,48 @@
+# CODEOWNERS — ai-native-company
+#
+# The single repo rule, in plain English:
+#
+#   1. Default workflow is push direct to `main`. Anyone with write access
+#      commits without ceremony.
+#   2. The ONE exception is `canon/` — every change to that folder must go
+#      through a pull request, and the owner (@your-github-handle) is the reviewer.
+#
+# This file enforces the second half via auto-review-request: when a PR
+# touches `canon/**`, GitHub auto-requests the owner as a required
+# reviewer. The first half is enforced by NOT setting branch protection
+# on `main` for non-canon paths.
+#
+# Bypass paths are protected:
+#   - `/.github/CODEOWNERS` itself (this file): editing it would let
+#     someone remove the owner from the canon route. Owner-only.
+#   - `/.github/workflows/`: the direct-push guard lives here. Owner-only.
+#
+# Technological note (limitation of the GitHub free plan):
+#   - On the **free** plan a **private** repo does not include Rulesets or
+#     Branch Protection. Real server-side blocking of direct pushes to
+#     `canon/**` is NOT available until the repo upgrades to GitHub Pro,
+#     GitHub Team, or is made public.
+#   - As a workaround, `.github/workflows/canon-direct-push-guard.yml`
+#     runs on every push to `main` and fails the workflow if a commit
+#     modifies `canon/**` without coming from a merged PR. This is
+#     REACTIVE enforcement (the push happens, the check fails after) —
+#     not preventive. The convention does the rest.
+#
+# CODEOWNERS syntax: gitignore-style globs; last-matching-line wins.
+#
+# SETUP: replace @your-github-handle below with the repo owner's GitHub
+# handle (or a team like @your-org/leads).
+
+# ─── Default: no owner required ──────────────────────────────────────────────
+# By design — push direct to `main` works for everyone with write access.
+# Anything not matched below has NO required reviewer.
+
+# ─── canon/ — company truth, PR-only, owner-reviewed ────────────────────────
+# Every change here auto-requests the owner as required reviewer.
+/canon/                        @your-github-handle
+
+# ─── Bypass-protection — owner-only ─────────────────────────────────────────
+# Editing CODEOWNERS or the enforcement workflow would let someone bypass
+# the canon/ rule. So both are owner-protected.
+/.github/CODEOWNERS            @your-github-handle
+/.github/workflows/            @your-github-handle

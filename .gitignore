@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+*.egg-info/
+
+# Environment
+.env
+.env.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# iCloud/Dropbox sync-conflict copies (e.g. "foo 2.md", "bar 3.md") — never commit
+* [0-9].md
+
+# Claude Code local state (never commit — transient git worktrees + per-user local settings)
+# Skills live ONLY in the repo's top-level skills/, NEVER in .claude/skills/.
+.claude/worktrees/
+.claude/skills/
+.claude/settings.local*.json

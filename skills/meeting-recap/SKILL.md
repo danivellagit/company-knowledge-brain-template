@@ -10,7 +10,7 @@ teams: []
 
 # Meeting recap
 
-**Owned by**: [team/leadership/](../../team/leadership/) (team-shared skill — any team member invokes it; behavior is parametrized by who is asking).
+**Owned by**: [canon/team/leadership.md](../../canon/team/leadership.md) (team-shared skill — any team member invokes it; behavior is parametrized by who is asking).
 **Created by**: [[<person-slug>]]
 
 ## Purpose

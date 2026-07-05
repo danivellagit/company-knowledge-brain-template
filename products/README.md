@@ -16,7 +16,7 @@ A product is an **AI agent / automation** `<COMPANY>` ships. One product maps to
 
 A product is **not** a feature, **not** a product pillar, **not** a service line. It's the thing you can point to and say "this is what the agent does, this is roughly what it costs to run or buy, this is the impact, this is what it plugs into."
 
-Born in your docs system. The product is conceived, scoped, and priced there. The repo MD comes second and stays thin, it exists so signals, scripts, and skills can wiki-link a stable target.
+Born in your docs system. The product is conceived, scoped, and priced there. The repo MD comes second and stays thin, it exists so signals and skills can wiki-link a stable target.
 
 ---
 

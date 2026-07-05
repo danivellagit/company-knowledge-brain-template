@@ -10,7 +10,7 @@
 
 The repo is a **growing** context layer, not a closed inventory. The next sentence the user types may reference an entity (a company, a person, a system, a product, a theme, an article) or a capability (a skill) that isn't in the repo yet. The correct move is **not** to conclude "it doesn't exist" or "this isn't the place for that". It is to:
 
-1. **Check the canonical source before concluding absence.** For external `companies/` and `people/`, that source is your CRM (e.g. HubSpot, Salesforce, Pipedrive) via MCP. For taxonomy entities (`themes/`, `industries/`, `job-titles/`, `systems/`, `products/`, `articles/`), it's the per-type heuristic in [Entity-scan discipline](#entity-scan-discipline) → "Per-type creation heuristics". For skills, it's `skills/` itself, plus the option to create a new one.
+1. **Check the canonical source before concluding absence.** For external `companies/` and `people/`, that source is your CRM (e.g. HubSpot, Salesforce, Pipedrive) via MCP. For taxonomy entities (`themes/`, `industries/`, `job-titles/`, `products/`, `articles/`), it's the per-type heuristic in [Entity-scan discipline](#entity-scan-discipline) → "Per-type creation heuristics". For skills, it's `skills/` itself, plus the option to create a new one.
 2. **Propose the create / link / alias action, then proceed.** The graph grows by explicit proposal-and-confirmation, never by silent skip and never by silent create (see [Entity-scan discipline](#entity-scan-discipline) → "Triage before write").
 3. **Refusing because "I don't see it in the repo" is a bug.** The repo reflects only what someone has already pulled in. Absence in the repo is a signal to check the source of truth, not a conclusion that the entity does not exist.
 
@@ -27,7 +27,7 @@ This stance applies to **every interaction** — answering a question, writing a
 | User mentions a new system / theme / industry / job-title / product in passing | Silent skip. | Apply [Entity-scan discipline](#entity-scan-discipline) → propose `create` / `alias-merge` / `skip`; never silent skip. |
 | User surfaces an observation from outside a tracked source (a competitor podcast, a press release, a SERP scan, a screenshot, an internal note) that bears on positioning / customers / strategy | Acknowledge in chat and move on. | Propose pushing it as a manual signal — `signals/manual/YYYY/MM/<firstname>-<lastname>_<topic-slug>_YYYY-MM-DD.md`. Same write-time discipline as any other signal (citations, English, entity-scan, wiki-links, exclusion list). Full format: [`signals/manual/README.md`](../signals/manual/). |
 
-The proactivity covers every entity type in [`anatomy.md`](anatomy.md) → "Domain map": `themes/`, `people/`, `companies/`, `industries/`, `relationship-types/`, `job-titles/`, `systems/`, `products/`, `articles/`, plus `skills/`. The only enum that **never** gets new entries is `relationship-types/` (fixed: `customer` / `prospect` / `partner` / `vendor` / `advisor`).
+The proactivity covers every entity type in [`anatomy.md`](anatomy.md) → "Domain map": `themes/`, `people/`, `companies/`, `industries/`, `relationship-types/`, `job-titles/`, `products/`, `articles/`, plus `skills/`. The only enum that **never** gets new entries is `relationship-types/` (fixed: `customer` / `prospect` / `partner` / `vendor` / `advisor`).
 
 ---
 
@@ -43,13 +43,13 @@ Three surfaces, three destinations. Pick exactly one before writing.
 
 | Surface | Destination | Examples |
 |---|---|---|
-| **Knowledge.** Canonical rules, stable definitions, append-only signals, taxonomy entries, reusable agent behaviors. | This repo. | `canon/`, `canon/team/<team>.md`, `people/`, `companies/`, `themes/`, `products/`, `systems/`, `industries/`, `job-titles/`, `signals/`, `skills/`. |
+| **Knowledge.** Canonical rules, stable definitions, append-only signals, taxonomy entries, reusable agent behaviors. | This repo. | `canon/`, `canon/team/<team>.md`, `people/`, `companies/`, `themes/`, `products/`, `industries/`, `job-titles/`, `signals/`, `skills/`. |
 | **Document for an audience.** A page written to be read by humans, formatted for consumption: All-hands recap, marketing one-pager, narrative deck content, internal announcement, distilled summary of canon for a specific reader. | Your docs system (e.g. Notion, Confluence), via MCP. | All-hands ICP recap, partner-facing brief, team-level FAQ page. |
 | **Binary file.** xlsx, pdf, docx, pptx, png, jpg, mp4, any non-text asset. | Your file storage (e.g. Drive). | Spreadsheets, exports, customer-shareable decks, screenshots, logos, mockups. |
 
 Email drafts go in your email tool. Calendar events go in your calendar. CRM notes go in your CRM. See [Outbound drafts: create in the tool, not the chat](#outbound-drafts-create-in-the-tool-not-the-chat) for the matching MCP rule.
 
-If the content is **not knowledge**, do not write a repo file. Surface the classification and the right destination to the user in chat ("this looks like a docs-system page; I'll create it via the docs-system MCP instead of in `team/marketing/`"), propose creating the artifact in the matching tool, proceed only after the user confirms. The user may override with an explicit reason. Silent acceptance of a non-knowledge write is a bug.
+If the content is **not knowledge**, do not write a repo file. Surface the classification and the right destination to the user in chat ("this looks like a docs-system page; I'll create it via the docs-system MCP instead of in `canon/team/marketing.md`"), propose creating the artifact in the matching tool, proceed only after the user confirms. The user may override with an explicit reason. Silent acceptance of a non-knowledge write is a bug.
 
 ### Gate 2: if knowledge, reuse existing slots first
 
@@ -57,7 +57,7 @@ When the content classifies as knowledge, the next question is *where in the rep
 
 1. **Org-level canon.** Does the content fit as a new section in [`canon/company-rules.md`](company-rules.md), [`canon/operations.md`](operations.md), [`canon/anatomy.md`](anatomy.md), or [`canon/profile.md`](profile.md)? Add it there.
 2. **Team-level canon.** Does it fit in an existing [`canon/team/<team>.md`](team/)? Add it there.
-3. **Entity body.** Does it extend a definition that already lives in a `people/`, `companies/`, `themes/`, `products/`, `systems/`, `industries/`, `job-titles/`, or `relationship-types/` MD? Extend that body, respecting the body-asymmetry rule in [`anatomy.md`](anatomy.md) → "Body asymmetry — same folder, different body weight".
+3. **Entity body.** Does it extend a definition that already lives in a `people/`, `companies/`, `themes/`, `products/`, `industries/`, `job-titles/`, or `relationship-types/` MD? Extend that body, respecting the body-asymmetry rule in [`anatomy.md`](anatomy.md) → "Body asymmetry — same folder, different body weight".
 4. **Append-only signal.** Is it a dated observation tied to a meeting, a call, an email, an external event? Push it as a signal under [`signals/`](../signals/).
 5. **Skill.** Is it a reusable behavior an agent should invoke? Add or extend a skill under [`skills/<slug>/SKILL.md`](../skills/).
 
@@ -150,7 +150,7 @@ The repo's shape is canonical. The folder taxonomy in [`anatomy.md`](anatomy.md)
 
 **Routine, no challenge:** per-skill subfolders at [`skills/<slug>/`](../skills/), each owning a directory by design, plus time-bucket subfolders under [`signals/<source>/YYYY/MM/`](../signals/) created automatically as months pass. These follow the standard push-to-`main` flow described above.
 
-**Everywhere else, challenge first.** When an agent is about to create a folder anywhere other than the two routine locations above — a new top-level folder, a new subfolder inside `team/`, `companies/`, `people/`, `products/`, `industries/`, `systems/`, `themes/`, `job-titles/`, `relationship-types/`, `articles/`, `canon/`, or any other existing folder — it stops and runs the sequence below before any write. **Silent `mkdir` is a bug.**
+**Everywhere else, challenge first.** When an agent is about to create a folder anywhere other than the two routine locations above — a new top-level folder, a new subfolder inside `companies/`, `people/`, `products/`, `industries/`, `themes/`, `job-titles/`, `relationship-types/`, `articles/`, `canon/`, or any other existing folder — it stops and runs the sequence below before any write. **Silent `mkdir` is a bug.**
 
 1. **Challenge the user.** Open with: *"You're proposing a new folder at `<path>`. The repo's structure is canonical and new folders are rare. Let me check what you're trying to do before creating it."* Make the suspicion explicit.
 2. **Ask questions until intent is clear.** What content will live in the folder? Is it about a specific company, person, product, system or theme (in which case it goes as a flat MD in the existing folder for that type, not as a new subfolder)? Is it customer-specific delivery work (in which case it goes in file storage / docs system / CRM, never the repo)? Is it a skill (in which case it goes under `skills/<slug>/`, which is routine and exempt)? Is it an ad-hoc working area (in which case the answer is no — use [`signals/manual/`](../signals/manual/) for observations, the user's own filesystem for scratch work)?
@@ -174,8 +174,8 @@ The repo's shape is canonical. The folder taxonomy in [`anatomy.md`](anatomy.md)
 
 | Tempted to create | Correct location |
 |---|---|
-| `team/<company-name>/` (e.g. `team/<company>/`) | None. `team/` is **functional teams only** (e.g. `leadership` / `marketing` / `product` / `engineering` / `sales` / `customer-success`). The home company lives in [`companies/<company>.md`](../companies/) (`is_self: true`). |
-| `team/<any>/prospects/<X>/`, `team/<any>/customers/<X>/`, `team/sales/deals/<X>/` | None. External entities are `companies/<X>.md` (stable facts) + CRM (deal / pipeline state) + file storage (deliverables). Per-customer folders in the repo are forbidden. |
+| `canon/team/<company-name>.md` (e.g. `canon/team/<company>.md`) | None. `canon/team/` is **functional teams only** (e.g. `leadership` / `marketing` / `product` / `engineering` / `sales` / `customer-success`). The home company lives in [`companies/<company>.md`](../companies/) (`is_self: true`). |
+| A per-customer / per-prospect / per-deal team file (`canon/team/<X>` for a customer, prospect, or deal) | None. `canon/team/` is flat, functional teams only. External entities are `companies/<X>.md` (stable facts) + CRM (deal / pipeline state) + file storage (deliverables). |
 | `<customer>-demo/`, `<customer>-onboarding/`, `prospect-<X>/` at any level | None. Per-customer deliverables are generated on demand by a product-level skill with the customer as input. Output lands in file storage / docs system / CRM, never in the repo. |
 | `notes/`, `drafts/`, `wip/`, `inbox/`, `scratch/` | None. One-off observations go to [`signals/manual/YYYY/MM/`](../signals/manual/) following the manual-signal schema; scratch work stays on the user's local filesystem, not committed. |
 | `customers/`, `prospects/`, `partners/`, `vendors/`, `advisors/` at any level | None. All five relationship types share [`companies/<X>.md`](../companies/) and are differentiated by the `relationship:` frontmatter wiki-link. |
@@ -354,7 +354,7 @@ Before saving any file with body prose (signals, articles, recap outputs, anythi
 | **People — internal** (`company: [[<company>]]`) | Match against [`people/<slug>.md`](../people/) aliases. Wiki-link if MD exists. **Never seed** internal MDs from a body-mention — that slice is curated by humans. |
 | **People — external** (anyone whose `company:` is not `[[<company>]]`) | Match against [`people/<slug>.md`](../people/) aliases. If MD exists → wiki-link. If MD does not exist → **query the CRM**; if the CRM has a record, create `people/<slug>.md` with `company: [[<their-company>]]` and `crm_url` populated (see [In-repo external entities](#in-repo-external-entities--create-on-first-mention)) and wiki-link; if no record, plain text. |
 | **Companies** (external orgs) | Match against [`companies/<slug>.md`](../companies/) aliases. If MD exists → wiki-link. If not, query the CRM → create-with-`crm_url` or leave plain text. The home company [`companies/<company>.md`](../companies/) (`is_self: true`) is curated by humans, same posture as internal people. |
-| **Teams** | Match against [`team/<slug>/`](../team/). Wiki-link if folder exists. |
+| **Teams** | Match against [`canon/team/<slug>.md`](team/). Wiki-link if file exists. |
 
 The rule applies to **every write**, including AI-generated outputs. A skill must perform the CRM lookups inline; the human reviewer should not have to chase missing wiki links after the fact.
 
@@ -442,7 +442,7 @@ The body asymmetry rule in [`anatomy.md`](anatomy.md) → "Body asymmetry — sa
 
 ### Stable facts only
 
-Every entity MD body — `themes/<x>.md`, `products/<x>.md`, `systems/<x>.md`, `industries/<x>.md`, `job-titles/<x>.md`, `relationship-types/<x>.md`, every external `companies/<x>.md`, every external `people/<x>.md` — carries **stable, definitional content only**. The `## About` answers *"what does this entity mean / what is this thing in the company's frame"*, in 1-2 sentences, using facts that don't move week to week.
+Every entity MD body — `themes/<x>.md`, `products/<x>.md`, `industries/<x>.md`, `job-titles/<x>.md`, `relationship-types/<x>.md`, every external `companies/<x>.md`, every external `people/<x>.md` — carries **stable, definitional content only**. The `## About` answers *"what does this entity mean / what is this thing in the company's frame"*, in 1-2 sentences, using facts that don't move week to week.
 
 What is **forbidden** in any entity body:
 
@@ -470,16 +470,15 @@ This applies symmetrically to external and internal MDs. The difference is the s
 
 ## Entity-scan discipline
 
-**Any text → scan for new entries; any conversation → scan for missing entities.** Every time an agent reads source content (meeting transcript, email thread, chat message, doc, CRM dump) **OR** responds to a user message that names an entity, its first obsession is: *is this entity in the graph? If not, what's the right create / alias / link action?* This is the entity-level manifestation of the umbrella stance in [Agent stance — proactive, not refusing](#agent-stance--proactive-not-refusing) above. Across all eight entity types in [`anatomy.md`](anatomy.md) → "Domain map":
+**Any text → scan for new entries; any conversation → scan for missing entities.** Every time an agent reads source content (meeting transcript, email thread, chat message, doc, CRM dump) **OR** responds to a user message that names an entity, its first obsession is: *is this entity in the graph? If not, what's the right create / alias / link action?* This is the entity-level manifestation of the umbrella stance in [Agent stance — proactive, not refusing](#agent-stance--proactive-not-refusing) above. Across all seven entity types in [`anatomy.md`](anatomy.md) → "Domain map":
 
 1. [`themes/`](../themes/) — topics, frameworks, concepts the company reasons about
 2. [`people/`](../people/) — internal team members (human-curated) + external contacts (CRM-gated)
-3. [`companies/`](../companies/) — every external org (CRM-gated)
+3. [`companies/`](../companies/) — every external org, including technology-platform vendors the customers run (CRM-gated; competitors and tech vendors are exempt, no `crm_url`)
 4. [`industries/`](../industries/) — verticals / market segments
 5. [`relationship-types/`](../relationship-types/) — fixed enum (`customer`, `prospect`, `partner`, `vendor`, `advisor`) — **never create new**
 6. [`job-titles/`](../job-titles/) — canonical roles
-7. [`systems/`](../systems/) — external software platforms customers run
-8. [`products/`](../products/) — company offerings
+7. [`products/`](../products/) — company offerings
 
 Silent skip is a bug. An unfamiliar capitalized term, a recurring framework name, a new platform mention — each must go through the steps below before the writer commits the output.
 
@@ -489,7 +488,7 @@ The `aliases:` field is not a nice-to-have — it is the only check that prevent
 
 - **Every MD is born with rich aliases.** At create time, populate every variant the writer can predict: first-name shortenings, full-name combinations (firstname-lastname, lastname-firstname), domain / handle (email local part, social handle), known misspellings. **Empty aliases on an MD is a bug, not a default.**
 - **Backfill aliases in use.** When the entity-scan loop encounters a term that *should* match an existing MD but doesn't because the alias is missing, the triage prompt offers `add alias X to <existing-md>` as the canonical action — *not* `create new MD`. The graph stays single-vertex per entity over time.
-- **The alias index is global.** Fuzzy-match runs across the aliases of every existing MD in every folder, not just the folder the candidate seems to belong to. A capitalized phrase in a transcript might land on a [`themes/`](../themes/) entry, a [`systems/`](../systems/) entry, a [`companies/`](../companies/) entry — the writer checks all of them.
+- **The alias index is global.** Fuzzy-match runs across the aliases of every existing MD in every folder, not just the folder the candidate seems to belong to. A capitalized phrase in a transcript might land on a [`themes/`](../themes/) entry or a [`companies/`](../companies/) entry (a customer, a competitor, or a technology vendor) — the writer checks all of them.
 
 ### Fuzzy-match-before-create
 
@@ -497,8 +496,8 @@ Before creating any entity MD, the writer **must** fuzzy-match the candidate aga
 
 1. **Exact alias hit** → wiki-link the existing MD. Done.
 2. **High-confidence fuzzy match** (Levenshtein-close, common shortening pattern, same email domain, plausible misspelling) → propose `alias-merge: add "<candidate>" to <existing-md>` to the invoker. Do not silently merge.
-3. **No match, entity type is CRM-gated** (`people/` external, `companies/`) → query the CRM via MCP; if hit, propose `create with crm_url`; if miss, plain text.
-4. **No match, entity type is taxonomy** (`themes/`, `industries/`, `job-titles/`, `systems/`) → propose `create new` if the per-type heuristic below is met; otherwise plain text. (`products/` is excluded here: it is born in the docs system, never from an entity-scan, see [Product catalog — source of truth is the docs system](#product-catalog--source-of-truth-is-the-docs-system).)
+3. **No match, entity type is CRM-gated** (`people/` external, `companies/`) → query the CRM via MCP; if hit, propose `create with crm_url`; if miss, plain text. **Exception:** a technology platform a customer runs (commerce platform, PIM, payment provider, …) is created as `companies/<slug>.md` with `relationship: [[vendor]]` and no `crm_url` (like a competitor), not gated on a CRM hit.
+4. **No match, entity type is taxonomy** (`themes/`, `industries/`, `job-titles/`) → propose `create new` if the per-type heuristic below is met; otherwise plain text. (`products/` is excluded here: it is born in the docs system, never from an entity-scan, see [Product catalog — source of truth is the docs system](#product-catalog--source-of-truth-is-the-docs-system).)
 
 ### Per-type creation heuristics
 
@@ -512,16 +511,16 @@ Before creating any entity MD, the writer **must** fuzzy-match the candidate aga
 | `industries/` | A new vertical the company is selling / actively prospecting into, **or** an industry term recurring across ≥ 2 distinct sources. Don't pre-seed a vertical from a single passing mention, but recurrence on its own is enough to propose. |
 | `relationship-types/` | **Never create.** Fixed enum (`customer`, `prospect`, `partner`, `vendor`, `advisor`). |
 | `job-titles/` | A canonical title an external person holds that isn't covered. Propose once the title recurs (≥ 2 mentions / sources) or is strategically meaningful; skip transient one-offs. |
-| `systems/` | External software platform a customer / prospect runs (commerce platform, PIM, payment provider, …). Create on first confirmed mention; recurrence reinforces. |
+| `companies/` (vendor — technology platform) | External software a customer / prospect runs (commerce platform, PIM, payment provider, …). Create as a `vendor` company on first confirmed mention (no CRM record or `crm_url` required); recurrence reinforces. The customer gets `uses_stack: [[<vendor>]]`, the vendor gets `used_by: [[<customer>]]`. |
 | `products/` | **Never created from an entity-scan.** Born in the docs-system "Products" database (the system of record); the repo MD is a thin pointer created with `docs_url` once the product exists in the docs system. See [Product catalog — source of truth is the docs system](#product-catalog--source-of-truth-is-the-docs-system). |
 
 ### Link what exists; recurrence triggers a create
 
 Two failure modes are explicitly bugs, not style choices. Both lean the same way: **under-linking is the default failure of the entity-scan, so bias toward the link and let the invoker say skip.**
 
-1. **A term that maps to an existing MD must be linked, every time.** When the file you are writing names an entity that already has an MD (a system, an industry, a theme, a job-title), you populate its frontmatter edge in the same write, forward **and** reverse per the pairs table in [`anatomy.md`](anatomy.md) → "Frontmatter wiki-link relations". Leaving it as plain prose is an incomplete write, not a stylistic choice. The most-missed edges are the taxonomy ones: `companies/<x> → uses_stack: [[<system>]]`, `companies/<x> → industry: [[<industry>]]`, `signals/<…> → related_to_systems / related_to_themes`. A company body that names its commerce platform while `uses_stack` sits empty is a bug.
+1. **A term that maps to an existing MD must be linked, every time.** When the file you are writing names an entity that already has an MD (a system, an industry, a theme, a job-title), you populate its frontmatter edge in the same write, forward **and** reverse per the pairs table in [`anatomy.md`](anatomy.md) → "Frontmatter wiki-link relations". Leaving it as plain prose is an incomplete write, not a stylistic choice. The most-missed edges are the taxonomy ones: `companies/<x> → uses_stack: [[<vendor>]]`, `companies/<x> → industry: [[<industry>]]`, `signals/<…> → related_to_systems / related_to_themes`. A company body that names its commerce platform while `uses_stack` sits empty is a bug.
 
-2. **Recurrence is itself a create trigger.** Do not wait for a term to feel "important" before proposing it. For the taxonomy types (`systems/`, `industries/`, `themes/`, `job-titles/`), a term that recurs (≥ 2 mentions in the text being processed, or across ≥ 2 distinct sources) is enough to land on the triage list as a `create` candidate. The per-type heuristics above set the floor; recurrence clears it.
+2. **Recurrence is itself a create trigger.** Do not wait for a term to feel "important" before proposing it. For the taxonomy types (`industries/`, `themes/`, `job-titles/`), a term that recurs (≥ 2 mentions in the text being processed, or across ≥ 2 distinct sources) is enough to land on the triage list as a `create` candidate. The per-type heuristics above set the floor; recurrence clears it.
 
 This applies on every read and every write, not only to create-bearing skills: when answering a question that leans on a system or vertical that already has an MD, reference it by its node, not as a loose noun.
 
@@ -548,7 +547,7 @@ Internal people are still off-limits to skills (see [In-repo external entities �
 
 When the user asks for an email ("write a mail to X", "draft an email", "reply to Y"), the agent **creates the draft inside the email tool** via the email MCP (`create_draft`). The user reviews, edits, and sends from the email UI. The chat may include a one-line note ("draft created in your email tool, subject: ...") and the body for inline review, but the canonical artifact lives in the email tool.
 
-**The hard anti-pattern: never save the draft as a repo file.** Writing an email body to `team/<team>/<topic>-email.md`, `signals/manual/<topic>.md`, or anywhere else inside this repo is **forbidden**. The email is a deliverable, not knowledge: it ships from the email tool and lives there. Same logic for any audience-facing document drafted alongside the email (an All-hands page, a partner brief, a deck narrative). The chat note may summarize the deliverable, but the artifact materializes in its destination tool (docs-system page via MCP, deck in file storage, etc.), never in a `.md` file in this repo. See [Repo scope: knowledge only](#repo-scope-knowledge-only) for the underlying classification.
+**The hard anti-pattern: never save the draft as a repo file.** Writing an email body to `canon/team/<team>.md`, `signals/manual/<topic>.md`, or anywhere else inside this repo is **forbidden**. The email is a deliverable, not knowledge: it ships from the email tool and lives there. Same logic for any audience-facing document drafted alongside the email (an All-hands page, a partner brief, a deck narrative). The chat note may summarize the deliverable, but the artifact materializes in its destination tool (docs-system page via MCP, deck in file storage, etc.), never in a `.md` file in this repo. See [Repo scope: knowledge only](#repo-scope-knowledge-only) for the underlying classification.
 
 The same blocking rule applies to other outbound surfaces when a tool is connected:
 

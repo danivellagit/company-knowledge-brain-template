@@ -4,7 +4,7 @@ One folder per **skill** the team uses. A skill is a reusable Claude Code-style 
 
 Three kinds of skill coexist:
 
-- **Team-shared** — owned by one team, used by anyone on that team. Same skill folder, behavior parametrized by the invoker's identity. Naming: `<team-slug>-<purpose>` (e.g. `leadership-meeting-recap`). Filters / scope come from the team's `team/<team>/<team>.md` and from the company canon — never per-person preferences baked into the file. Anyone on the team can edit; the change applies to everyone the next time they invoke it.
+- **Team-shared** — owned by one team, used by anyone on that team. Same skill folder, behavior parametrized by the invoker's identity. Naming: `<team-slug>-<purpose>` (e.g. `leadership-meeting-recap`). Filters / scope come from the team's `canon/team/<team>.md` and from the company canon — never per-person preferences baked into the file. Anyone on the team can edit; the change applies to everyone the next time they invoke it.
 - **Personal / owner-bound** — bound to one specific person, with that person's filters, voice, vocabulary, exclusions. Naming: `<owner-slug>-<purpose>` (e.g. `<person-slug>-blog-writer`). The owner edits everything inside their skill's folder freely; nobody else gates them. To diverge from a team-shared skill, a person forks it into a personal one and customizes.
 - **Shared sub-tool** — reusable building block invoked by a parent skill (e.g. a `<transcript tool>` fetch step, a per-call summarizer). Naming: role-based. Lives **inside** the parent skill's folder by default; only promoted to top-level when proven reuse across multiple parents emerges. Don't pre-share — let the duplication speak first.
 
@@ -81,14 +81,14 @@ In the body, restate ownership and authorship with wiki links so any reader sees
 **Creator**: [<full name>](../../people/<person-slug>.md)
 
 # Team-shared skill
-**Owned by**: [team/<team-slug>/](../../team/<team-slug>/) (team-shared skill — any team member invokes it).
+**Owned by**: [canon/team/<team-slug>.md](../../canon/team/<team-slug>.md) (team-shared skill — any team member invokes it).
 **Created by**: [<full name>](../../people/<person-slug>.md)
 ```
 
 The body of `SKILL.md` is the system prompt: how it works, what it expects as input, what it produces, where it writes (if it writes), what it must never do.
 
 - **Personal skills** are where the owner encodes their filtering preferences inline — that's the whole point of being owner-bound.
-- **Team-shared skills** keep filters at the team / company level only (read from `team/<team>/<team>.md` and the company canon at run time). Per-person preferences do **not** belong in a team-shared file. If someone needs personal filters, they fork into a personal skill.
+- **Team-shared skills** keep filters at the team / company level only (read from `canon/team/<team>.md` and the company canon at run time). Per-person preferences do **not** belong in a team-shared file. If someone needs personal filters, they fork into a personal skill.
 
 ### Bundled sub-tools
 
@@ -135,7 +135,7 @@ Every user-facing `skills/<slug>/SKILL.md` must wiki-link to its ownership AND a
 
 The reverse relations are mandatory too (double-write rule):
 
-- `owner: [[<team>]]` -> `team/<team>/<team>.md -> skills: [[<skill>]]`.
+- `owner: [[<team>]]` -> team-owned skills have **no manual reverse**; find them via the editor's Referenced by on `canon/team/<team>.md` (so creating a skill stays a direct push).
 - `owner: [[<person>]]` -> `people/<person-slug>.md -> skills: [[<skill>]]`.
 - `creator: [[<person>]]` -> `people/<person-slug>.md -> skills_created: [[<skill>]]`.
 
@@ -147,7 +147,7 @@ See [`anatomy.md`](../canon/anatomy.md) -> Frontmatter wiki-link relations — f
 
 1. Pick a slug — `<team-slug>-<purpose>` for team-shared, `<owner-slug>-<purpose>` for personal, role-based for the rare top-level shared sub-tool.
 2. Copy [`_TEMPLATE/SKILL.md`](_TEMPLATE/SKILL.md) to `skills/<slug>/SKILL.md` and fill the frontmatter (mandatory `owner:` wiki-link and mandatory `creator:` wiki-link) and the prompt body.
-3. Add the reverse wiki-links to the partner files: `team/<team>/<team>.md -> skills:` (or `people/<owner>.md -> skills:` for personal skills) AND `people/<creator>.md -> skills_created:`. Both in the same write.
+3. Add the reverse wiki-links to the partner files: `people/<owner>.md -> skills:` for a personal skill (team-owned skills use Referenced by, no manual reverse) AND `people/<creator>.md -> skills_created:`. Both in the same write.
 4. If the skill needs internal steps as sub-tools, add them as `skills/<slug>/<helper>/SKILL.md` (omit `owner` and `creator` on those — they inherit from parent).
 5. If the skill writes to the repo, link to the destination's output-format spec instead of inlining it.
 6. Commit with `skills: add <slug>`.

@@ -171,7 +171,7 @@ Do **not** add `## Notes`, `## Context`, deal involvement, communication prefere
 |---|---|
 | `company: [[<company>]]` | `companies/<company>.md -> people: [[<person>]]` |
 | `job_title: [[<title>]]` | `job-titles/<title>.md -> people: [[<person>]]` |
-| `team: [[<team>]]` (internal only) | `team/<team>/<team>.md -> people_involved: [[<person>]]` |
+| `team: [[<team>]]` (internal only) | `canon/team/<team>.md -> people_involved: [[<person>]]` |
 | `reports_to: [[<manager>]]` (internal only) | `people/<manager>.md -> direct_reports: [[<report>]]` |
 
 Maintained as double-writes per [`canon/anatomy.md`](../canon/anatomy.md) -> Frontmatter wiki-link relations (forward + reverse pairs, the table) and [`canon/operations.md`](../canon/operations.md) -> Wiki-link relations, always double-write (the procedure).
@@ -182,7 +182,7 @@ Maintained as double-writes per [`canon/anatomy.md`](../canon/anatomy.md) -> Fro
 
 1. Internal: create / edit `people/<firstname>-<lastname>.md` with the required + internal-only frontmatter, plus the body sections.
 2. External: query the CRM first. If no record exists, stop, leave the mention as plain text. If a record exists, create the MD with required + external-only frontmatter (including `crm_url`).
-3. In either case, update the matching reverse on partner files (`companies/<company>.md -> people:`, `job-titles/<title>.md -> people:`, `team/<team>/<team>.md -> people_involved:`, manager's `direct_reports:`) in the **same write**.
+3. In either case, update the matching reverse on partner files (`companies/<company>.md -> people:`, `job-titles/<title>.md -> people:`, `canon/team/<team>.md -> people_involved:`, manager's `direct_reports:`) in the **same write**.
 4. Commit. For non-`canon/**` files this goes direct to `main` per [`canon/operations.md`](../canon/operations.md) -> Changes, push to main, with one exception.
 
 Keep it honest. A stale `## Scope` list is worse than no list: it actively misleads agents.

@@ -4,7 +4,7 @@
 >
 > Every agent reads this file whenever it needs to know "who is who" or "what business we're in".
 >
-> **Template note:** fill the `<placeholders>` and `_TBD_` blocks. The example team set below (leadership / sales / marketing / product / engineering / customer-success) is a starting point for a scale-up — rename, add, or remove teams to match your org, then mirror the changes in [`canon/team/`](team/) and [`team/`](../team/).
+> **Template note:** fill the `<placeholders>` and `_TBD_` blocks. The example team set below (leadership / sales / marketing / product / engineering / customer-success) is a starting point for a scale-up — rename, add, or remove teams to match your org, then mirror the changes in [`canon/team/`](team/).
 
 ---
 
@@ -30,7 +30,7 @@ Backed by: _TBD (investors / board), or "bootstrapped"._
 
 ## Team leads
 
-The people who own their team's `team/<team>/` files. This table is the example team set for a scale-up — adjust to your org.
+The people who own their team's `canon/team/<team>.md` file. This table is the example team set for a scale-up — adjust to your org.
 
 | Team | Lead | Primary concern |
 |---|---|---|

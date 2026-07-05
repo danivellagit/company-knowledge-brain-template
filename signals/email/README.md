@@ -46,7 +46,7 @@ related_to_themes:
 # Email digest — <Full Name> — YYYY-MM-DD
 
 **Person**: [<Full Name>](../../../../people/<person-slug>.md)
-**Team(s) impacted**: [<team1>](../../../../team/<team1>/), [<team2>](../../../../team/<team2>/)
+**Team(s) impacted**: [<team1>](../../../../canon/team/<team1>.md), [<team2>](../../../../canon/team/<team2>.md)
 
 ---
 ```
@@ -66,7 +66,7 @@ One section per material thread. Group all replies in the same thread together �
 
 - **Counterparty**: <External Name, role @ company> (or [<Full Name>](../../../../people/<person-slug>.md) when an MD exists)
 - **Internal participants**: [<Full Name>](../../../../people/<person-slug>.md), ...
-- **Teams touched**: [<team>](../../../../team/<team>/), ...
+- **Teams touched**: [<team>](../../../../canon/team/<team>.md), ...
 - **Key points**: 3-5 bullets.
 - **Decisions / commitments**: ...
 - **Action items I own**: ...

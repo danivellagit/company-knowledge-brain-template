@@ -13,10 +13,9 @@ Every entity in the repo lives in a dedicated folder. Open the folder's README t
 | Folder | What it holds | Wiki-link target as |
 |---|---|---|
 | [`people/`](../people/) | Any person — internal team member or external (customer, prospect, partner, vendor, advisor). Internal vs external is derived from `company:` (internal = `[[<company>]]`). | `[[<firstname-lastname>]]` |
-| [`companies/`](../companies/) | Any organization — the home company ([`<company>.md`](../companies/) with `is_self: true`) and every external customer / prospect / partner / vendor / advisor. | `[[<company-slug>]]` |
+| [`companies/`](../companies/) | Any organization — the home company ([`<company>.md`](../companies/) with `is_self: true`), every external customer / prospect / partner / vendor / advisor / competitor, **and every external software platform customers run** (the tools and applications in a customer's stack), which are companies too and live here as `relationship: [[vendor]]`. | `[[<company-slug>]]` |
 | [`canon/`](.) | Canon files — `company-rules.md`, `operations.md`, `anatomy.md`, `profile.md`, `team/<team>.md`. **Every modification goes through a PR.** | _path link only_ |
 | [`industries/`](../industries/) | Verticals / market segments <COMPANY> sells into or partners operate in | `[[<industry-slug>]]` |
-| [`systems/`](../systems/) | External software platforms customers run (the tools and applications in a customer's stack) | `[[<system-slug>]]` |
 | [`products/`](../products/) | The AI agents / automations <COMPANY> builds (for itself or to sell). Thin **pointers** to your docs system via `docs_url`; see [`operations.md`](operations.md) → "Product catalog". | `[[<product-slug>]]` |
 | [`relationship-types/`](../relationship-types/) | The five kinds of commercial relationship (`customer`, `prospect`, `partner`, `vendor`, `advisor`) | `[[<type-slug>]]` |
 | [`job-titles/`](../job-titles/) | Canonical titles held by people (internal and external) — CEO, CRO, CPO, CTO, Software Engineer, Head of Ecommerce, Consultant, … | `[[<title-slug>]]` |
@@ -25,8 +24,7 @@ Every entity in the repo lives in a dedicated folder. Open the folder's README t
 | [`signals/daily-call/YYYY/MM/`](../signals/daily-call/) | Daily call recaps — one file per person per day: `<person-slug>_YYYY-MM-DD.md`. Written by the `daily-call-recap` skill. **Never under `team/`**. | _no inbound; append-only_ |
 | [`signals/email/YYYY/MM/`](../signals/email/) | Email-derived signals | _no inbound; append-only_ |
 | [`signals/manual/YYYY/MM/`](../signals/manual/) | Manually pushed signals (coffees, hallway chats, off-record intel) — written by the `write-insight` skill | _no inbound; append-only_ |
-| [`team/<team>/<team>.md`](../team/) | Team index (one per team folder) | `[[<team-slug>]]` |
-| [`canon/team/<team>.md`](team/) | Team-specific canon rules — PR-gated as part of canon. | _path link only_ |
+| [`canon/team/<team>.md`](team/) | The team node — one file per functional team, holding both the team-specific canon **rules** and the team **composition** (`name`, `people_involved`). PR-gated as canon. There is no separate `team/` folder: this file **is** the team, and is the target of the `[[<team-slug>]]` wiki-link (the one canon exception to path-link-only). | `[[<team-slug>]]` |
 | [`skills/<slug>/SKILL.md`](../skills/) | Reusable agent behaviors (team-shared or personal) | `[[<skill-slug>]]` |
 
 The full graph — every forward edge with its mandatory reverse — lives in [Frontmatter wiki-link relations — forward + reverse pairs](#frontmatter-wiki-link-relations--forward--reverse-pairs) below.
@@ -39,7 +37,7 @@ The Domain map above is the **entire list of folders** an agent may write into. 
 
 **Two clarifications the map above implies but worth stating explicitly:**
 
-- **`team/` is for functional teams only** — `leadership`, `sales`, `marketing`, `product`, `engineering`, `customer-success`. **Never a company name** (the home company is [`companies/<company>.md`](../companies/), not a team folder). **Never a subfolder for a customer / prospect / partner / vendor / advisor** (those are `companies/<slug>.md` entities, with deal state in your CRM and deliverables in your file storage). A path like `team/<company>/prospects/<X>/` is structurally invalid by construction.
+- **`canon/team/` is for functional teams only** — `leadership`, `sales`, `marketing`, `product`, `engineering`, `customer-success`. One flat `canon/team/<team>.md` per team (rules + composition); there is no `team/` folder and no nesting. **Never a company name** (the home company is [`companies/<company>.md`](../companies/), not a team). **Never a file for a customer / prospect / partner / vendor / advisor** (those are `companies/<slug>.md` entities, with deal state in your CRM and deliverables in your file storage). A path like `canon/team/<company>.md` or a per-prospect team file is structurally invalid by construction.
 - **No per-customer subfolder anywhere in the repo.** Customer-specific deliverables (demo decks, onboarding briefs, prospect summaries) are produced on demand by a product-level skill (with the customer as input). The output lands in your file storage / docs system / CRM. The repo holds the stable entity (`companies/<slug>.md`) and the generic skill, never a per-customer working folder.
 
 ---
@@ -67,7 +65,7 @@ The forward + reverse pair structure means every node knows both who it points t
 
 The principle: **the body reflects where the truth lives.** When the truth lives in an external system (the CRM for the customer graph, the docs system for the product catalogue), the repo MD is a pointer and stays light. When the truth lives in the repo (a founder's voice, a team's working style), the body carries it. This is why per-person voice / tone / operating-style content lives in `people/<slug>.md` for internal team members and **does not exist** on external `people/` MDs — even though both files live in the same folder and share the same frontmatter shape.
 
-**`crm_url` is mandatory for external MDs, with one exception.** External `people/<slug>.md` and `companies/<slug>.md` may not exist without a populated `crm_url`. The CRM URL is the entity's birth certificate in this repo: no URL, no MD. **The exception**: `companies/<slug>.md` with `relationship: [[competitor]]` carries no `crm_url`. Competitors are tracked for competitive intelligence, not as customer-graph entities, and they are not in your CRM by design. The `industry` field is also optional on competitor company MDs, since competitors are not in verticals <COMPANY> sells into. Internal people may also have `crm_url:` empty (if they're a CRM user/owner rather than a contact record).
+**`crm_url` is mandatory for external MDs, with one exception.** External `people/<slug>.md` and `companies/<slug>.md` may not exist without a populated `crm_url`. The CRM URL is the entity's birth certificate in this repo: no URL, no MD. **The exceptions**: `companies/<slug>.md` with `relationship: [[competitor]]` **or** `relationship: [[vendor]]` technology platforms carry no `crm_url`. Competitors are tracked for competitive intelligence, and technology vendors (the software customers run) are tracked for stack context; neither is a customer-graph entity and neither is in your CRM by design. The `industry` field is likewise optional on both. (A vendor that is your own paid supplier does carry `crm_url` when it exists in the CRM.) Internal people may also have `crm_url:` empty (if they're a CRM user/owner rather than a contact record).
 
 **Customer MDs may carry an optional docs pointer.** `docs_url` points to the customer's hub in your docs system (phase, projects, delivery KPIs), mirroring how `products/<slug>.md` points to the product catalogue. It is populated only for active accounts (`relationship: [[customer]]` with a live or in-flight project); it sits next to `crm_url` and stays empty on prospects until a project hub exists.
 
@@ -173,16 +171,16 @@ The **double-write procedure** (every forward edit triggers the matching reverse
 
 | Forward (declared on …) | Reverse (declared on …) |
 |---|---|
-| `people/<x>.md → team: [[<team>]]` | `team/<team>/<team>.md → people_involved: [[<person>]]` |
+| `people/<x>.md → team: [[<team>]]` | `canon/team/<team>.md → people_involved: [[<person>]]` |
 | `people/<report>.md → reports_to: [[<manager>]]` | `people/<manager>.md → direct_reports: [[<report>]]` |
 | `people/<x>.md → company: [[<company>]]` | `companies/<x>.md → people: [[<person>]]` |
 | `people/<x>.md → job_title: [[<title>]]` | `job-titles/<title>.md → people: [[<person>]]` |
 | `companies/<x>.md → industry: [[<industry>]]` | `industries/<industry>.md → companies: [[<company>]]` |
 | `companies/<x>.md → relationship: [[<type>]]` | `relationship-types/<type>.md → companies: [[<company>]]` |
-| `companies/<x>.md → uses_stack: [[<system>]]` | `systems/<system>.md → companies: [[<company>]]` |
+| `companies/<customer>.md → uses_stack: [[<vendor-company>]]` | `companies/<vendor>.md → used_by: [[<customer>]]` |
 | `articles/<x>.md → themes: [[<theme>]]` | `themes/<theme>.md → articles: [[<article>]]` |
 | `signals/<source>/<period>/<slug>.md → related_to_themes: [[<theme>]]` | `themes/<theme>.md → signals: [[<signal>]]` |
-| `skills/<slug>/SKILL.md → owner: [[<team-or-person>]]` | `team/<team>/<team>.md → skills: [[<skill>]]` (or `people/<x>.md → skills:` for personal skills) |
+| `skills/<slug>/SKILL.md → owner: [[<team-or-person>]]` | _no manual reverse for team-owned skills — use the editor's "Referenced by" on `canon/team/<team>.md` (skills are created often; keeping the reverse in canon would PR-gate every new skill). For a personal skill, the reverse `people/<x>.md → skills:` is still declared._ |
 | `skills/<slug>/SKILL.md → creator: [[<person-slug>]]` | `people/<person-slug>.md → skills_created: [[<skill>]]` |
 
 **Exception — signals**. Signals (`signals/*/*/*.md`) declare forward `author`, `teams_impacted`, `related_to_people`, `related_to_companies`, `related_to_products`, `related_to_systems`, `related_to_themes`. As a general rule they do **not** get a reverse on the cited entity — signals grow without bound and reverse-maintenance on unbounded taxonomies (people, companies, products, systems) would explode. Inverse lookup on those target pages uses the editor's generic Referenced by view.
@@ -195,5 +193,5 @@ The **double-write procedure** (every forward edit triggers the matching reverse
 
 Cross-cutting → specific, not viceversa.
 
-- [`people/`](../people/), [`companies/`](../companies/), [`signals/`](../signals/), [`articles/`](../articles/), and [`skills/`](../skills/) are primary cross-cutting locations at the repo root; they link **into** [`team/`](../team/).
+- [`people/`](../people/), [`companies/`](../companies/), [`signals/`](../signals/), [`articles/`](../articles/), and [`skills/`](../skills/) are primary cross-cutting locations at the repo root; they link **into** the team nodes at [`canon/team/`](team/).
 - A person's MD always lives in [`people/`](../people/) — internal or external, never under a team's folder, even if they only work with one team. Internal vs external is derived from `company:`.

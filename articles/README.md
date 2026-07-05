@@ -52,7 +52,7 @@ themes: []                             # wiki-link list — resolves to themes/<
 ---
 ```
 
-`themes` is the navigable axis. Each value is a wiki-link to a file in [`themes/`](../themes/) — same pattern as `industries/` / `systems/`. If a theme doesn't have an MD yet, create one (1-2 sentence definition + the manual reverse `articles: [[<this-article>]]`); see [`themes/README.md`](../themes/) for the rule. The forward `articles → themes` and the reverse `themes → articles` are double-written in the same change.
+`themes` is the navigable axis. Each value is a wiki-link to a file in [`themes/`](../themes/) — same pattern as `industries/` / `products/`. If a theme doesn't have an MD yet, create one (1-2 sentence definition + the manual reverse `articles: [[<this-article>]]`); see [`themes/README.md`](../themes/) for the rule. The forward `articles → themes` and the reverse `themes → articles` are double-written in the same change.
 
 ### Body
 

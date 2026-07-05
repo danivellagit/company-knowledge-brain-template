@@ -16,7 +16,7 @@ TEMPLATE NOTES — delete before saving a real skill.
 - owner and creator are BOTH mandatory and are different fields. owner = who it serves; creator = who wrote it.
 - Bundled sub-tools (skills/<slug>/<helper>/SKILL.md) OMIT owner and creator — they inherit from the parent.
 - Double-write the reverse links in the same commit:
-    owner [[<team>]]   -> team/<team>/<team>.md -> skills:
+    owner [[<team>]]   -> (Referenced by on canon/team/<team>.md; no manual reverse)
     owner [[<person>]] -> people/<person-slug>.md -> skills:
     creator [[<person>]] -> people/<person-slug>.md -> skills_created:
 - If this skill writes to the repo, LINK to the destination README's output-format spec — never copy it in here.
@@ -37,7 +37,7 @@ The trigger conditions — what the user says or what state the repo is in when 
 ## Inputs
 
 - What the skill reads to do its job: a source tool (`<transcript tool>`, `<email>`, `<CRM>`, `<docs system>`, `<file storage>`), a date, a person, repo files.
-- Which canon / team files it loads at run time for filters (`team/<team>/<team>.md`, company canon).
+- Which canon / team files it loads at run time for filters (`canon/team/<team>.md`, company canon).
 
 ## Procedure / Steps
 

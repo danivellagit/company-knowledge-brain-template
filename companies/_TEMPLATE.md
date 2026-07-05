@@ -14,7 +14,7 @@ industry:                             # MANDATORY for external (optional for com
   - "[[<industry>]]"                  # wiki link to industries/<slug>.md
 relationship:                         # MANDATORY for external
   - "[[<relationship-type>]]"         # customer | prospect | partner | vendor | advisor | competitor
-uses_stack: []                        # optional, external software they run. e.g. ["[[<system>]]"]
+uses_stack: []                        # optional, vendor companies they run. e.g. ["[[<vendor-company>]]"]
 docs_url: <docs-url>                  # optional, the company's hub/page in your docs system (e.g. Notion, Confluence)
 people: []                            # wiki-link list of people MDs at this company. e.g. ["[[jane-doe]]"]
 ---

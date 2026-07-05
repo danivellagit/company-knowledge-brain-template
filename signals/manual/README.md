@@ -48,7 +48,7 @@ related_to_themes:
 # <Topic title> — <Full Name> — YYYY-MM-DD
 
 **Author**: [<Full Name>](../../../../people/<person-slug>.md)
-**Team(s) impacted**: [<team1>](../../../../team/<team1>/), [<team2>](../../../../team/<team2>/)
+**Team(s) impacted**: [<team1>](../../../../canon/team/<team1>.md), [<team2>](../../../../canon/team/<team2>.md)
 
 ---
 ```

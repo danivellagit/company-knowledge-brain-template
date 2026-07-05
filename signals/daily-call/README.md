@@ -48,7 +48,7 @@ related_to_themes:
 # Daily call recap — <Full Name> — YYYY-MM-DD
 
 **Person**: [<Full Name>](../../../../people/<person-slug>.md)
-**Team(s) impacted**: [<team1>](../../../../team/<team1>/), [<team2>](../../../../team/<team2>/)
+**Team(s) impacted**: [<team1>](../../../../canon/team/<team1>.md), [<team2>](../../../../canon/team/<team2>.md)
 
 ---
 ```
@@ -67,7 +67,7 @@ Then one section per call:
 ## <call title or topic> — <HH:MM-HH:MM>
 
 - **Attendees**: [<Full Name>](../../../../people/<person-slug>.md), <External Name, role @ company>, ...
-- **Teams touched**: [<team>](../../../../team/<team>/), ...
+- **Teams touched**: [<team>](../../../../canon/team/<team>.md), ...
 - **Key points**: 3-5 bullets.
 - **Decisions**: ...
 - **Action items I own**: ...

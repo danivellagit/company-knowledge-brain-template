@@ -46,10 +46,10 @@ Two tiers, and that is the whole thing.
 | [`canon/`](canon/) | The rules. `company-rules.md` (identity, voice, exclusions), `operations.md` (how the agent works), `anatomy.md` (how the graph is shaped), `profile.md` (the facts), and `canon/team/<team>.md` per team. PR-gated. |
 | [`people/`](people/), [`companies/`](companies/) | One file per human and per organization. Internal entries are rich (scope, voice); external ones stay light and point to your CRM. |
 | [`products/`](products/) | One thin pointer per AI agent or automation you build or sell. The full spec lives in your docs system. |
-| [`industries/`](industries/), [`systems/`](systems/), [`themes/`](themes/), [`job-titles/`](job-titles/), [`relationship-types/`](relationship-types/) | The shared taxonomy the graph snaps to, so a term means the same node everywhere. |
+| [`industries/`](industries/), [`themes/`](themes/), [`job-titles/`](job-titles/), [`relationship-types/`](relationship-types/) | The shared taxonomy the graph snaps to, so a term means the same node everywhere. |
 | [`signals/`](signals/) | What happened, on the record: call recaps, email digests, manual notes. Append-only, dated, cross-cutting. The company's running memory. |
 | [`skills/`](skills/) | Reusable agent behaviors, each a Markdown file an agent follows step by step. Ships with one generic example, [`meeting-recap`](skills/meeting-recap/). |
-| [`team/`](team/) | One folder per team, a thin index of who is on it. |
+| [`canon/team/`](canon/team/) | One file per team: the team's rules plus its composition (`people_involved`). |
 
 Ownership is confined (a team lead edits their slice, canon moves only by PR) but reads are open: everyone, and every agent, reads everything. The whole repo is the context.
 
@@ -66,7 +66,7 @@ flowchart LR
   P["people/jane-doe"] -- "company" --> C["companies/acme-corp"]
   C -- "people" --> P
   C -- "industry" --> I["industries/retail"]
-  C -- "uses_stack" --> S["systems/shopify"]
+  C -- "uses_stack" --> S["companies/shopify"]
   Sig["signals/.../call-recap"] -. "related_to" .-> C
   C -. "docs_url" .-> Pr["products/lead-qualifier"]
 ```

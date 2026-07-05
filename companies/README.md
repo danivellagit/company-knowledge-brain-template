@@ -51,12 +51,14 @@ aliases:                              # every spelling/handle that appears in tr
   - acme.com
 linkedin:                             # company LinkedIn URL (https://www.linkedin.com/company/<slug>/)
 crm_url:                              # paste the CRM company record URL (e.g. HubSpot, Salesforce, Pipedrive)
-industry:                             # MANDATORY (optional for competitor), wiki-link to industries/<slug>.md
+industry:                             # MANDATORY (optional for competitor and vendor), wiki-link to industries/<slug>.md
   - "[[<industry>]]"
 relationship:                         # MANDATORY, wiki-link to relationship-types/<slug>.md
   - "[[<relationship-type>]]"         # customer | prospect | partner | vendor | advisor | competitor
-uses_stack:                           # wiki-link list to systems/<slug>.md, external software the company runs (when known)
-  - "[[<system>]]"
+uses_stack:                           # wiki-link list to the vendor companies/<slug>.md this company runs (when known)
+  - "[[<vendor-company>]]"
+used_by:                              # (vendor companies only) reverse of uses_stack: customers/<slug>.md that run this platform
+  - "[[<customer>]]"
 docs_url:                             # optional, link to the company's hub/page in your docs system (e.g. Notion, Confluence)
 people:                               # wiki-link list, people MDs that belong to this company
   - "[[jane-doe]]"
@@ -69,13 +71,13 @@ The `people` field is a wiki-link list to the people MDs that belong to this com
 **`is_self`** is set on exactly one MD: the home company. It marks the anchor every internal person points to via `company:`. External companies never carry it.
 
 **Mandatory wiki-link fields** (no TBD allowed). Every external company MD must carry them at create time:
-- `industry: [[<industry>]]` links the company to its industry in [`industries/`](../industries/). If the existing industries don't cover the company, **create the industry MD first**, then link. **Optional for** `relationship: [[competitor]]`.
+- `industry: [[<industry>]]` links the company to its industry in [`industries/`](../industries/). If the existing industries don't cover the company, **create the industry MD first**, then link. **Optional for** `relationship: [[competitor]]` and `relationship: [[vendor]]` technology platforms.
 - `relationship: [[<type>]]` links to [`relationship-types/<slug>.md`](../relationship-types/). One of customer / prospect / partner / vendor / advisor / competitor.
 
-**`crm_url`** is mandatory for external companies, with one exception: `relationship: [[competitor]]`. Competitors are tracked for competitive intelligence and aren't in your CRM by design, so they carry no `crm_url`. Full rule in [`canon/operations.md`](../canon/operations.md) -> "In-repo external entities: create-on-first-mention".
+**`crm_url`** is mandatory for external companies, with two exceptions: `relationship: [[competitor]]` and `relationship: [[vendor]]` technology platforms (the software customers run). Both are tracked for context, not as customer-graph entities, and aren't in your CRM by design, so they carry no `crm_url`. (A vendor that is your own paid supplier does carry one when it exists in the CRM.) Full rule in [`canon/operations.md`](../canon/operations.md) -> "In-repo external entities: create-on-first-mention".
 
 **Highly recommended (populate when there's evidence)**:
-- `uses_stack` external software the company runs (commerce platform, data warehouse, payment provider, ...). Lands on [`systems/<slug>.md`](../systems/). Drives "which customers run `<system>`?" lookalike queries.
+- `uses_stack` external software the company runs (commerce platform, data warehouse, payment provider, ...). Lands on the vendor's `companies/<slug>.md` (technology vendors live in `companies/` as `relationship: [[vendor]]`); the reverse `used_by` on the vendor lists its customers. Drives "which customers run `<vendor>`?" lookalike queries.
 - `docs_url` an optional pointer to the company's hub or page in your docs system, where any audience-facing or richer material lives. The repo stays a thin index; the docs system holds the pages.
 
 Don't speculate on these, populate only when a recap, CRM record or explicit signal confirms the value.

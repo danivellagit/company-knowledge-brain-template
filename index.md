@@ -8,7 +8,7 @@
 
 **Ownership and edits: confined. Reads: open.**
 
-Every team owns a slice of this repo (its rules and team index) and only the team lead — or the CEO — can change those slices. The canon ([`canon/`](canon/)) goes through a PR by hard rule. Cross-cutting folders ([`signals/`](signals/), [`people/`](people/), [`companies/`](companies/), [`articles/`](articles/), [`skills/`](skills/)) and the domain layer ([`industries/`](industries/), [`systems/`](systems/), [`products/`](products/), [`themes/`](themes/), [`relationship-types/`](relationship-types/), [`job-titles/`](job-titles/)) live at root and link teams via wiki links rather than nest under any single one. **But every reader, regardless of team, reads any slice it needs.** A sales skill preparing a deck reads [`team/marketing/`](team/) for brand voice, [`team/product/`](team/) for what's shipping, [`signals/`](signals/) for what was discussed today, and [`companies/<account>.md`](companies/) for the strategic posture — independent of which AI tool the salesperson uses.
+Every team owns a slice of this repo (its rules and team index) and only the team lead — or the CEO — can change those slices. The canon ([`canon/`](canon/)) goes through a PR by hard rule. Cross-cutting folders ([`signals/`](signals/), [`people/`](people/), [`companies/`](companies/), [`articles/`](articles/), [`skills/`](skills/)) and the domain layer ([`industries/`](industries/), [`products/`](products/), [`themes/`](themes/), [`relationship-types/`](relationship-types/), [`job-titles/`](job-titles/)) live at root and link teams via wiki links rather than nest under any single one. **But every reader, regardless of team, reads any slice it needs.** A sales skill preparing a deck reads [`canon/team/marketing.md`](canon/team/) for brand voice, [`canon/team/product.md`](canon/team/) for what's shipping, [`signals/`](signals/) for what was discussed today, and [`companies/<account>.md`](companies/) for the strategic posture — independent of which AI tool the salesperson uses.
 
 There is **no per-team filtering on reads**. The whole repo is the context. Ownership protects writes, not reads.
 
@@ -50,7 +50,6 @@ Every modification to a file in [`canon/`](canon/) goes through a pull request. 
 | Folder | One MD per | Wiki-link target for |
 |---|---|---|
 | [industries/](industries/) | Vertical you sell into | `companies.industry` |
-| [systems/](systems/) | External software platform customers run | `companies.uses_stack` |
 | [products/](products/) | An AI agent / automation you build. Thin pointer to your docs system via `docs_url`. | No inbound frontmatter edge; fit / used-by relations live in your docs system |
 | [themes/](themes/) | Topic / theme the company reasons about | `articles.themes` |
 | [relationship-types/](relationship-types/) | Kind of commercial relationship (customer / prospect / partner / vendor / advisor / competitor) | `companies.relationship` |
@@ -66,13 +65,13 @@ Every modification to a file in [`canon/`](canon/) goes through a pull request. 
 
 ## Teams
 
-Team rules are PR-gated under [`canon/team/`](canon/team/). Team indexes stay under [`team/<team>/`](team/) (push-direct). A team's operational picture is read natively from the graph (signals filtered on `teams_impacted` + the entities they link), not stored as a file.
+Each team is a single flat file [`canon/team/<team>.md`](canon/team/) holding both the team **rules** and its **composition** (`name`, `people_involved`). There is no separate `team/` folder. It is PR-gated as canon and is the target of the `[[<team-slug>]]` wiki-link. A team's operational picture is read natively from the graph (signals filtered on `teams_impacted` + the entities they link), not stored as a file.
 
-| Team (example set) | Folder | Rules (PR-only) |
-|---|---|---|
-| Leadership | [team/leadership/](team/leadership/) | [rules](canon/team/leadership.md) |
-| Sales | [team/sales/](team/sales/) | [rules](canon/team/sales.md) |
-| _your other teams_ | `team/<team>/` | `canon/team/<team>.md` |
+| Team (example set) | File (rules + composition, PR-only) |
+|---|---|
+| Leadership | [canon/team/leadership.md](canon/team/leadership.md) |
+| Sales | [canon/team/sales.md](canon/team/sales.md) |
+| _your other teams_ | `canon/team/<team>.md` |
 
 Per-team daily-call recaps **do not** live under team folders. They are written cross-cutting at [`signals/daily-call/`](signals/daily-call/) and link the team(s) impacted; an agent assembling a team's picture filters them at read time.
 
@@ -84,7 +83,7 @@ Per-team daily-call recaps **do not** live under team folders. They are written 
 2. Read [operations.md](canon/operations.md) and [anatomy.md](canon/anatomy.md) to interpret inputs correctly (dates, language, citations, sync — in operations; glossary, external sources of truth, wiki-link relations — in anatomy).
 3. For ownership and decision authority, consult [people/](people/).
 4. To resolve external names in transcripts and read the strategic posture on a customer / partner cold, consult [people/](people/) (external = `company:` is not `[[<company>]]`) and [companies/](companies/) — pivot to the CRM for live state.
-5. To pivot from a customer to its vertical or stack, follow the wiki-links in the company's frontmatter into [industries/](industries/), [systems/](systems/). For the agents a customer runs, the product catalogue lives in your docs system (the [products/](products/) MDs are pointers via `docs_url`).
+5. To pivot from a customer to its vertical or stack, follow the wiki-links in the company's frontmatter into [industries/](industries/) and the vendor [companies/](companies/) listed in `uses_stack`. For the agents a customer runs, the product catalogue lives in your docs system (the [products/](products/) MDs are pointers via `docs_url`).
 6. For today's operational picture of your team, scan [`signals/`](signals/) filtered on `teams_impacted` and follow the entities those signals link.
 7. For your team's filters and non-negotiables, read `canon/team/<your-team>.md`.
 8. For what happened yesterday on tracked channels, scan the files under [`signals/<source>/YYYY/MM/`](signals/) dated yesterday — one per person per source. Each entry's `teams_impacted` frontmatter tells you whether it's relevant to your team.

@@ -21,7 +21,7 @@ Every signal entry — regardless of subfolder — carries the same frontmatter 
 date: YYYY-MM-DD            # the day this signal covers.
 author:                     # the person who wrote / owns the signal.
   - "[[<person-slug>]]"     # resolves to people/<slug>.md
-teams_impacted:             # every team this signal touches — wiki-link list to team/<slug>/<slug>.md
+teams_impacted:             # every team this signal touches — wiki-link list to canon/team/<slug>.md
   - "[[<team-slug>]]"
 related_to_people:          # people surfaced in the body — internal and external, excluding the author. Resolves to people/<slug>.md
   - "[[<person-slug>]]"
@@ -29,7 +29,7 @@ related_to_companies:       # external companies surfaced (resolves to companies
   - "[[<company-slug>]]"
 related_to_products:       # company offerings surfaced (resolves to products/<slug>.md) — only when explicitly discussed
   - "[[<product-slug>]]"
-related_to_systems:         # external systems mentioned (resolves to systems/<slug>.md) — only when explicitly discussed
+related_to_systems:         # external tech vendors mentioned (resolves to the vendor companies/<slug>.md) — only when explicitly discussed
   - "[[<system-slug>]]"
 related_to_themes:          # themes surfaced (resolves to themes/<slug>.md) — only when explicitly discussed as a framework / concept, not just a passing word. Bidirectional: also add the signal to themes/<slug>.md -> signals:
   - "[[<theme-slug>]]"
@@ -53,7 +53,7 @@ See each subfolder's README for source-specific body format (per-call section, p
 ## Why this folder exists
 
 The repo distinguishes:
-- **Stable context** — `canon/`, [`people/`](../people/), [`team/<team>/<team>.md`](../team/) — changes rarely, edited by humans.
+- **Stable context** — `canon/`, [`people/`](../people/), [`canon/team/<team>.md`](../canon/team/) — changes rarely, edited by humans.
 - **Operational state** — this folder, read natively from the graph (signals + the entities they link). There is no separate per-team digest to maintain.
 - **Cross-cutting signals** — this folder. On-record syntheses (`daily-call/`, `email/`, `manual/`, and any future source-derived subfolder) live here because they serve the same purpose for agents: append-only context inputs.
 

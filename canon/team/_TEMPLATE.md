@@ -1,10 +1,16 @@
+---
+name: <Team>
+people_involved:              # reverse of people/<x>.md -> team: [[<team>]]; the members of this team
+  - "[[<person-slug>]]"
+---
+
 # `<Team>` Rules
 
 > Team: `<Team>`. Lead: `<Lead Name>` (file in [`people/`](../../people/)).
 > Takes effect under the company rules. If in conflict with [`company-rules.md`](../company-rules.md), the company rules win.
 > Only the `<Team>` Lead may edit this file.
 >
-> **Template note:** copy this file to `canon/team/<team>.md`, fill the blocks, delete this note. PR-gated like all canon. Mirror the team in [`profile.md`](../profile.md) → "Team leads" and create the team index at [`team/<team>/<team>.md`](../../team/).
+> **Template note:** copy this file to `canon/team/<team>.md`, fill the blocks, delete this note. This file **is** the team node: it carries both the rules (below) and the composition (`people_involved` frontmatter), and it is the `[[<team-slug>]]` wiki-link target. PR-gated like all canon. Mirror the team in [`profile.md`](../profile.md) → "Team leads". Team-owned skills are not listed here: they declare `owner: [[<team>]]` and are found via the editor's Referenced by.
 
 ---
 

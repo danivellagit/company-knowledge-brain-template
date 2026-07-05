@@ -1,7 +1,9 @@
 <!-- markdownlint-disable MD033 MD041 -->
 <div align="center">
 
-# 🧠 The AI-Native Company
+<img src=".github/assets/cover.png" alt="The AI-Native Company — a company's brain built from Markdown files, read by both humans and AI agents" width="100%" />
+
+# The AI-Native Company
 
 **Your company's brain — one folder of Markdown that humans and AI agents both read.**
 

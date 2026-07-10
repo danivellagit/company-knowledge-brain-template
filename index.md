@@ -1,4 +1,4 @@
-# Index — ai-native-company
+# Index — company-knowledge-brain
 
 > Catalog of everything in this repo. Humans use it as a table of contents; AI agents enter via [`CLAUDE.md`](CLAUDE.md) (the boot sequence) and consult this for navigation.
 

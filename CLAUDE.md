@@ -1,4 +1,4 @@
-# Agent context — ai-native-company (template)
+# Agent context — company-knowledge-brain (template)
 
 Boot sequence for any AI agent (Claude Code, Cursor, OpenAI Codex) operating in this repo. **Run this before responding to the user's request.**
 

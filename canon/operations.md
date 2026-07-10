@@ -298,7 +298,7 @@ A GitHub Action (the canon direct-push guard, under [`.github/workflows/`](../.g
 
 ### Per-user install — one-time setup
 
-1. Clone the repo to the chosen vault directory (the team standard is `~/<company>/ai-native-company/`).
+1. Clone the repo to the chosen vault directory (the team standard is `~/<company>/company-knowledge-brain/`).
 2. Configure git auth: `gh auth login` (preferred) or an SSH key.
 3. Install Claude Code. The SessionStart hook in `.claude/settings.json` is picked up automatically the next time Claude Code opens this directory.
 4. Open the local Markdown editor and point it at the vault directory.

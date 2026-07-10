@@ -10,7 +10,7 @@
 No vector database. No platform to buy. No lock-in. Just files in Git.
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Link check](https://github.com/danivellagit/ai-native-company-template/actions/workflows/link-check.yml/badge.svg)](https://github.com/danivellagit/ai-native-company-template/actions/workflows/link-check.yml)
+[![Link check](https://github.com/danivellagit/company-knowledge-brain-template/actions/workflows/link-check.yml/badge.svg)](https://github.com/danivellagit/company-knowledge-brain-template/actions/workflows/link-check.yml)
 ![Built with Markdown + Git](https://img.shields.io/badge/built%20with-Markdown%20%2B%20Git-black)
 ![Works with](https://img.shields.io/badge/works%20with-Claude%20·%20Cursor%20·%20Codex%20·%20ChatGPT-6b5bd6)
 
@@ -72,7 +72,7 @@ flowchart TD
 ## What's in the repo
 
 ```text
-ai-native-company/
+company-knowledge-brain/
 ├── CLAUDE.md · AGENTS.md      # boot file every agent reads first (mirrored)
 ├── canon/                     # 🔒 the rules — PR-only
 │   ├── company-rules.md       #    identity, voice, exclusions
@@ -137,8 +137,8 @@ Plain text, but wired.
 ## Quick start
 
 ```bash
-git clone https://github.com/danivellagit/ai-native-company-template.git
-cd ai-native-company-template
+git clone https://github.com/danivellagit/company-knowledge-brain-template.git
+cd company-knowledge-brain-template
 ```
 
 Then fill it in, in this order. **The repo is useful after step 3.**
